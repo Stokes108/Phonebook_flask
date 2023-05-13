@@ -33,7 +33,7 @@ def signup():
 
 @auth.route('/signin', methods = ['GET', 'POST'])
 def signin():
-    form = UserLoginForms()
+    form = UserLoginForm()
 
     try:  
         if request.method == 'POST' and form.validate_on_submit():

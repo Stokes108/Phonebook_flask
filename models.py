@@ -10,7 +10,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_login import UserMixin
-from flask_login import LoginManager 
+from flask_login import LoginManager
 from flask_marshmallow import Marshmallow 
 import secrets 
 
@@ -30,8 +30,6 @@ class User(db.Model, UserMixin):
 
 #     This class is for users to create accounts and log in. Who has 
 #     made accounts and logged into accounts
-
-
 
     id = db.Column(db.String, primary_key = True)
     first_name = db.Column(db.String(150), nullable = True, default = '')
@@ -76,7 +74,7 @@ class Contact(db.Model):
     email = db.Column(db.String(200))
     phone_number = db.Column(db.String(20))
     address = db.Column(db.String(200))
-    user_token = db.Column(db.String, db.ForeignKey('user.token', nullable = False))
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
     def __init__ (self, name, email, phone_number, address, user_token, id = ''):
         self.id = self.set_id()
@@ -93,7 +91,7 @@ class Contact(db.Model):
         return (secrets.token_urlsafe())
 
 # Marshmallow relates to conntecting the dots and how objects relate with each other
-class ContactSchema(ma.Scema):
+class ContactSchema(ma.Schema):
     class Meta:
         fields  = ['id', 'name', 'email', 'phone_number', 'address']
 

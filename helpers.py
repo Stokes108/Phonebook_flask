@@ -10,17 +10,17 @@ def token_required(our_flask_function):
     def decoratred(*args, **kwargs):
         token = None
         
-        if 'x_access-token' in request.headers:
+        if 'x-access-token' in request.headers:
             token = request.headers['x-access-token'].split(' ')[1]
         if not token:
             return jsonify({'message': 'Token is missing.'}), 401
         
         try:
-            current_user_token = User.query.filter_by(token = token).first()
+            current_user_token =  User.query.filter_by(token = token).first()
             print(token)
             print(current_user_token)
         except:
-            owner = User.query.filter_by(token = token).first
+            owner = User.query.filter_by(token = token).first()
 
             if token != owner.token and secrets.compare_digest(token, owner.token):
                 return jsonify({'message': 'Token is invalid.'})
